@@ -28,9 +28,7 @@
 
 **Pet Management** is a modern web application designed to manage and display a directory of pets. The application offers an intuitive and user-friendly interface, allowing users to view detailed information about pets, as well as add, update, and delete pet records interactively.
 
-## 💻 Link to Back End <a name="link-to-back-end"></a>
-https://github.com/bohaz/pet-service
-
+- [Link to Back End](https://github.com/bohaz/pet-service)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
