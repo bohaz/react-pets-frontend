@@ -12,9 +12,13 @@ export const addPet = async (petData) => {
   return response.data;
 };
 
-export const updatePet = async (id, petData) => {
-  const response = await axios.put(`${API_URL}/${id}`, petData);
-  return response.data;
+export const updatePet = async ({ id, data }) => {
+  try {
+    const response = await axios.put(`${API_URL}/${id}`, data);
+    return response.data;
+  } catch (error) {
+    throw error.response.data; 
+  }
 };
 
 export const deletePet = async (id) => {
