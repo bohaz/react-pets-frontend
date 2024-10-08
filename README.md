@@ -140,6 +140,6 @@ And think If you enjoy gift us a star.
 
 ## 📝 License <a name="license"></a>
 
-This project is licensed under the MIT License - you can click here to have more details [MIT]().
+This project is licensed under the MIT License - you can click here to have more details [MIT](https://github.com/bohaz/react-pets-frontend/blob/dev/LICENCE).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
