@@ -1,42 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import { fetchPets, addPet, updatePet, deletePet } from './api';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPetsAsync, addPetAsync, updatePetAsync, deletePetAsync } from './store/petsSlice';
 import PetForm from './components/PetForm';
 import PetList from './components/PetList';
 
 function App() {
-  const [pets, setPets] = useState([]);
+  const dispatch = useDispatch();
+  const pets = useSelector((state) => state.pets.pets);
+  const loading = useSelector((state) => state.pets.loading);
   const [formData, setFormData] = useState({ name: '', breed: '', age: '' });
   const [editingPet, setEditingPet] = useState(null);
 
   useEffect(() => {
-    const loadPets = async () => {
-      const fetchedPets = await fetchPets();
-      setPets(fetchedPets);
-    };
-    loadPets();
-  }, []);
+    dispatch(fetchPetsAsync());
+  }, [dispatch]);
 
   const handleAddPet = async (e) => {
     e.preventDefault();
-    const newPet = await addPet(formData);
-    setPets([...pets, newPet]);
-    resetForm();
-  };
+    const newPet = await dispatch(addPetAsync(formData)).unwrap();
+    alert(`New pet added: ${newPet.name}`);
+    setFormData({ name: '', breed: '', age: '' });
+};
 
-  const handleUpdatePet = async (e) => {
-    e.preventDefault();
-    const updatedPet = await updatePet(editingPet.id, formData);
-    setPets(pets.map(pet => (pet.id === editingPet.id ? updatedPet : pet)));
-    resetForm();
-  };
+const handleUpdatePet = async (e) => {
+  e.preventDefault();
+  if (editingPet) {
+    try {
+      await dispatch(updatePetAsync({ id: editingPet.id, data: formData })).unwrap();
+      resetForm();
+    } catch (error) {
+      console.error("Error updating pet:", error); 
+    }
+  }
+};
 
   const handleDeletePet = async (id) => {
-    await deletePet(id);
-    setPets(pets.filter(pet => pet.id !== id));
-  };
+    try {
+        await dispatch(deletePetAsync(id)).unwrap();
+        alert(`Pet with ID ${id} deleted`);
+    } catch (error) {
+        alert(`Failed to delete pet: ${error.message}`);
+    }
+};
 
   const editPet = (pet) => {
     setEditingPet(pet);
+    setFormData({ name: pet.name, breed: pet.breed, age: pet.age });
   };
 
   const resetForm = () => {
@@ -47,6 +56,7 @@ function App() {
   return (
     <div>
       <h1>Pet Management</h1>
+      {loading && <p>Loading pets...</p>}
       <PetForm
         formData={formData}
         setFormData={setFormData}
