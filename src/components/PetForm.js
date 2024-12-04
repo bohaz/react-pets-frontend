@@ -17,7 +17,7 @@ const PetForm = ({ formData, setFormData, onSubmit, editingPet }) => {
 
   return (
     <form onSubmit={onSubmit} className="bg-white p-6 rounded-lg shadow-md w-96 mx-auto">
-      <h2 className="text-2xl font-semibold text-center mb-4">{editingPet ? 'Update Pet' : 'Add Pet'}</h2>
+      <h2 className="text-2xl font-semibold text-center mb-4">{editingPet ? 'Update Pet' : 'Add a Pet'}</h2>
       <div className="mb-4 flex flex-col gap-3">
         <input
           type="text"
