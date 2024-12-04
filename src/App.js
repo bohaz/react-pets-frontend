@@ -54,17 +54,20 @@ const handleUpdatePet = async (e) => {
   };
 
   return (
-    <div>
-      <h1>Pet Management</h1>
-      {loading && <p>Loading pets...</p>}
-      <PetForm
-        formData={formData}
-        setFormData={setFormData}
-        onSubmit={editingPet ? handleUpdatePet : handleAddPet}
-        editingPet={editingPet}
-      />
-      <PetList pets={pets} editPet={editPet} deletePet={handleDeletePet} />
+    <div className="bg-gray-100 min-h-screen py-8 px-4">
+      <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
+        <h1 className="text-3xl font-semibold text-center mb-6">Pet Management</h1>
+        {loading && <p className="text-center text-gray-500">Loading pets...</p>}
+        <PetForm
+          formData={formData}
+          setFormData={setFormData}
+          onSubmit={editingPet ? handleUpdatePet : handleAddPet}
+          editingPet={editingPet}
+        />
+        <PetList pets={pets} editPet={editPet} deletePet={handleDeletePet} />
+      </div>
     </div>
+
   );
 }
 
